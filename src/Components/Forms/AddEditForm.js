@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Url } from '../../constants/global'
 
 class AddEditForm extends React.Component {
   state = {
@@ -16,43 +17,52 @@ class AddEditForm extends React.Component {
 
   submitFormAdd = e => {
     e.preventDefault()
-    fetch('http://10.20.110.65:3000/api/mitglied', {
+    fetch(Url + '/api/mitglied', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        Geschlecht: this.state.Geschlecht,
-        GebDatum: this.state.GebDatum,
-        Name: this.state.Name,
-        Rolle: this.state.Rolle
+        "geschlecht": this.state.Geschlecht,
+        "gebdatum": this.state.GebDatum,
+        "name": this.state.Name,
+        "rolle": this.state.Rolle
       })
     })
-      .then(response => response.json())
+      .then(response => window.location.reload(true))
+/*    .then(response => response.json())
       .then(item => {
+          console.log('Name: ' + this.state.Name)
+          console.log('GebDatum: ' + this.state.GebDatum)
+          console.log('Geschlecht: ' + this.state.Geschlecht)
+          console.log('Rolle: ' + this.state.Rolle)
+	  console.log(item)
+  	  //var newitem = Object.values(item)
+	  //console.log(newitem)
         if(Array.isArray(item)) {
-          this.props.addItemToState(item[0])
+	  console.log(item)
+          this.props.addItemToState(item)
           this.props.toggle()
         } else {
           console.log('failure')
         }
-      })
+      })                              */
       .catch(err => console.log(err))
   }
 
   submitFormEdit = e => {
     e.preventDefault()
-    fetch('http://10.20.110.65:3000/api/mitglied', {
+    fetch(Url + '/api/mitglied', {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ID_Mit: this.state.ID_Mit,
-        Geschlecht: this.state.Geschlecht,
-        GebDatum: this.state.GebDatum,
-        Name: this.state.Name,
-        Rolle: this.state.Rolle
+        "idmit": this.state.ID_Mit,
+        "geschlecht": this.state.Geschlecht,
+        "gebdatum": this.state.GebDatum,
+        "name": this.state.Name,
+        "rolle": this.state.Rolle
       })
     })
       .then(response => response.json())

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import ModalForm from './Components/Modals/Modal'
 import DataTable from './Components/Tables/DataTable'
+import { Url } from './constants/global'
 import { CSVLink } from "react-csv"
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
   }
 
   getItems(){
-    fetch('http://10.20.110.65:3000/api/mitglieder')
+    fetch(Url + '/api/mitglieder')
       .then(response => response.json())
       .then(items => this.setState({items}))
       .catch(err => console.log(err))
