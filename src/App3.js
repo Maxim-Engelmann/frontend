@@ -2,20 +2,24 @@ import React, { Component } from 'react'
 
 import { Container, Row, Col } from 'reactstrap'
 
-import ModalForm from './Components/Modals/Modal'
-import DataTable from './Components/Tables/DataTable'
+import ModalForm3 from './Components/Modals/Modal3'
+import DataTable3 from './Components/Tables/DataTable3'
 import { Url } from './constants/global'
 
 
 
-class App extends Component {
+class App3 extends Component {
   state = {
     items: []
   }
 
   getItems(){
-    fetch(Url + '/api/mitglieder')
+    fetch(Url + '/api/kommentare')
       .then(response => response.json())
+      .then(kommentare => kommentare.map(function (kommentar) {
+        var newElem = {ID_Kom: "N" + kommentar.Nr + "M" + kommentar.ID_Mit + "B" + kommentar.ID_Bei}
+        return Object.assign({}, newElem, kommentar);
+    }))
       .then(items => this.setState({items}))
       .catch(err => console.log(err))
   }
@@ -27,7 +31,7 @@ class App extends Component {
   }
 
   updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.ID_Mit === item.ID_Mit)
+    const itemIndex = this.state.items.findIndex(data => data.ID_Kom === item.ID_Kom)
     const newArray = [
     // destructure all items from beginning to the indexed item
       ...this.state.items.slice(0, itemIndex),
@@ -39,8 +43,8 @@ class App extends Component {
     this.setState({ items: newArray })
   }
 
-  deleteItemFromState = (ID_Mit) => {
-    const updatedItems = this.state.items.filter(item => item.ID_Mit !== ID_Mit)
+  deleteItemFromState = (ID_Kom) => {
+    const updatedItems = this.state.items.filter(item => item.ID_Kom !== ID_Kom)
     this.setState({ items: updatedItems })
   }
 
@@ -51,20 +55,20 @@ class App extends Component {
   render() {
 
     return (
-      <Container className="App">
+      <Container className="App3">
         <Row>
           <Col>
-            <h1 style={{margin: "20px 0"}}>Mitglieder</h1>
+            <h1 style={{margin: "20px 0"}}>Kommentare</h1>
           </Col>
         </Row>
         <Row>
           <Col>
-            <ModalForm buttonLabel="Neues Mitglied hinzufügen" addItemToState={this.addItemToState}/>
+            <ModalForm3 buttonLabel="Neuen Kommentar hinzufügen" addItemToState={this.addItemToState}/>
           </Col>
         </Row>
         <Row>
 		          <Col>
-		            <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
+		            <DataTable3 items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
 		          </Col>
 
         </Row>
@@ -73,4 +77,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App3

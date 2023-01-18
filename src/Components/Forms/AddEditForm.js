@@ -30,23 +30,6 @@ class AddEditForm extends React.Component {
       })
     })
       .then(response => window.location.reload(true))
-/*    .then(response => response.json())
-      .then(item => {
-          console.log('Name: ' + this.state.Name)
-          console.log('GebDatum: ' + this.state.GebDatum)
-          console.log('Geschlecht: ' + this.state.Geschlecht)
-          console.log('Rolle: ' + this.state.Rolle)
-	  console.log(item)
-  	  //var newitem = Object.values(item)
-	  //console.log(newitem)
-        if(Array.isArray(item)) {
-	  console.log(item)
-          this.props.addItemToState(item)
-          this.props.toggle()
-        } else {
-          console.log('failure')
-        }
-      })                              */
       .catch(err => console.log(err))
   }
 
@@ -65,17 +48,8 @@ class AddEditForm extends React.Component {
         "rolle": this.state.Rolle
       })
     })
-      .then(response => response.json())
-      .then(item => {
-        if(Array.isArray(item)) {
-          // console.log(item[0])
-          this.props.updateState(item[0])
-          this.props.toggle()
-        } else {
-          console.log('failure')
-        }
-      })
-      .catch(err => console.log(err))
+      	.then(response => window.location.reload(true))
+	.catch(err => console.log(err))
   }
 
   componentDidMount(){

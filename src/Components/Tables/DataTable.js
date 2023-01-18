@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'reactstrap';
 import ModalForm from '../Modals/Modal'
+import ModalForm4 from '../Modals/Modal4'
 import { Url } from '../../constants/global'
 
 class DataTable extends Component {
@@ -14,7 +15,7 @@ class DataTable extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ID_Mit
+        "idmit": ID_Mit
       })
     })
       .then(response => response.json())
@@ -61,6 +62,8 @@ class DataTable extends Component {
           <td>{out_Erstellt_array_string}</td>
           <td>
             <div style={{width:"120px"}}>
+              <ModalForm4 buttonLabel="More" item={item} updateState={this.props.updateState}/>
+              {' '}
               <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
               {' '}
               <Button color="danger" onClick={() => this.deleteItem(item.ID_Mit)}>Del</Button>

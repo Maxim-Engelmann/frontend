@@ -2,19 +2,19 @@ import React, { Component } from 'react'
 
 import { Container, Row, Col } from 'reactstrap'
 
-import ModalForm from './Components/Modals/Modal'
-import DataTable from './Components/Tables/DataTable'
+import ModalForm2 from './Components/Modals/Modal2'
+import DataTable2 from './Components/Tables/DataTable2'
 import { Url } from './constants/global'
 
 
 
-class App extends Component {
+class App2 extends Component {
   state = {
     items: []
   }
 
   getItems(){
-    fetch(Url + '/api/mitglieder')
+    fetch(Url + '/api/beitraege')
       .then(response => response.json())
       .then(items => this.setState({items}))
       .catch(err => console.log(err))
@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   updateState = (item) => {
-    const itemIndex = this.state.items.findIndex(data => data.ID_Mit === item.ID_Mit)
+    const itemIndex = this.state.items.findIndex(data => data.ID_Bei === item.ID_Bei)
     const newArray = [
     // destructure all items from beginning to the indexed item
       ...this.state.items.slice(0, itemIndex),
@@ -39,8 +39,8 @@ class App extends Component {
     this.setState({ items: newArray })
   }
 
-  deleteItemFromState = (ID_Mit) => {
-    const updatedItems = this.state.items.filter(item => item.ID_Mit !== ID_Mit)
+  deleteItemFromState = (ID_Bei) => {
+    const updatedItems = this.state.items.filter(item => item.ID_Bei !== ID_Bei)
     this.setState({ items: updatedItems })
   }
 
@@ -51,20 +51,20 @@ class App extends Component {
   render() {
 
     return (
-      <Container className="App">
+      <Container className="App2">
         <Row>
           <Col>
-            <h1 style={{margin: "20px 0"}}>Mitglieder</h1>
+            <h1 style={{margin: "20px 0"}}>Beiträge</h1>
           </Col>
         </Row>
         <Row>
           <Col>
-            <ModalForm buttonLabel="Neues Mitglied hinzufügen" addItemToState={this.addItemToState}/>
+            <ModalForm2 buttonLabel="Neuen Beitrag hinzufügen" addItemToState={this.addItemToState}/>
           </Col>
         </Row>
         <Row>
 		          <Col>
-		            <DataTable items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
+		            <DataTable2 items={this.state.items} updateState={this.updateState} deleteItemFromState={this.deleteItemFromState} />
 		          </Col>
 
         </Row>
@@ -73,4 +73,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App2
