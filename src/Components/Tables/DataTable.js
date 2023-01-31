@@ -18,10 +18,7 @@ class DataTable extends Component {
         "idmit": ID_Mit
       })
     })
-      .then(response => response.json())
-      .then(item => {
-        this.props.deleteItemFromState(ID_Mit)
-      })
+      .then(response => window.location.reload(true))
       .catch(err => console.log(err))
     }
 
@@ -61,8 +58,8 @@ class DataTable extends Component {
           <td>{out_Reagiert_array_string}</td>
           <td>{out_Erstellt_array_string}</td>
           <td>
-            <div style={{width:"120px"}}>
-              <ModalForm4 buttonLabel="More" item={item} updateState={this.props.updateState}/>
+            <div style={{width:"190px"}}>
+              <ModalForm4 buttonLabel="More" item={item}/>
               {' '}
               <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
               {' '}
@@ -84,7 +81,7 @@ class DataTable extends Component {
             <th>Rolle</th>
             <th>out_Reagiert</th>
             <th>out_Erstellt</th>
-            <th style={{width:"130px"}}>Actions</th>
+            <th style={{width:"190px"}}>Actions</th>
           </tr>
         </thead>
         <tbody>

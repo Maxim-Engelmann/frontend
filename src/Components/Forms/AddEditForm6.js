@@ -7,35 +7,34 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 import DataTable2 from '../Tables/DataTable2'
-import DataTable3 from '../Tables/DataTable3'
+import DataTable from '../Tables/DataTable'
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
-class AddEditForm4 extends React.Component {
+class AddEditForm6 extends React.Component {
 
   state = {
     type: '',
     rid: '',
     version: 0,
+    Nr: 0,
     ID_Mit: 0,
-    Geschlecht: '',
-    GebDatum: 0,
-    Name: '',
-    Rolle: '',
+    ID_Bei: 0,
+    Kommentar: '',
     newInfo: {}
   }
 
   componentDidMount(){
     // if item exists, populate the state with proper data
     if(this.props.item){
-      const { ID_Mit, Geschlecht, GebDatum, Name, Rolle } = this.props.item
+      const { Nr, ID_Mit, ID_Bei, Kommentar } = this.props.item
       const type = this.props.item["@class"]
       const rid = this.props.item["@rid"]
       const version = this.props.item["@version"];
-      this.setState({ type, rid, version, ID_Mit, Geschlecht, GebDatum, Name, Rolle })
+      this.setState({ type, rid, version, Nr, ID_Mit, ID_Bei, Kommentar })
 
-	    fetch(Url + '/api/mitgliedInfo?rid=' + rid.split("#")[1])
+	    fetch(Url + '/api/kommentarInfo?rid=' + rid.split("#")[1])
 	      .then(response => response.json())
 	      .then(newInfo => this.setState({newInfo}))
 	      .catch(err => console.log(err))
@@ -49,10 +48,9 @@ class AddEditForm4 extends React.Component {
 
   <Tabs>
     <TabList>
-      <Tab>Infos zum Mitglied</Tab>
-      <Tab>Beiträge</Tab>
-      <Tab>Kommentare</Tab>
-      <Tab>Kommentierte Beiträge</Tab>
+      <Tab>Infos zum Kommentar</Tab>
+      <Tab>Beitrag</Tab>
+      <Tab>Mitglied</Tab>
       <Tab>JSON</Tab>
     </TabList>
     <TabPanel>
@@ -69,37 +67,29 @@ class AddEditForm4 extends React.Component {
           <Input type="number" name="version" id="version" value={this.state.version === null ? '' : this.state.version} disabled />
         </FormGroup>
         <FormGroup>
+          <Label for="Nr">Nr</Label>
+          <Input type="number" name="Nr" id="Nr" value={this.state.Nr === null ? '' : this.state.Nr} disabled />
+        </FormGroup>
+        <FormGroup>
           <Label for="ID_Mit">ID_Mit</Label>
           <Input type="number" name="ID_Mit" id="ID_Mit" value={this.state.ID_Mit === null ? '' : this.state.ID_Mit} disabled />
         </FormGroup>
         <FormGroup>
-          <Label for="Geschlecht">Geschlecht</Label>
-          <Input type="text" name="Geschlecht" id="Geschlecht" value={this.state.Geschlecht === null ? '' : this.state.Geschlecht} disabled />
+          <Label for="ID_Bei">ID_Bei</Label>
+          <Input type="number" name="ID_Bei" id="ID_Bei" value={this.state.ID_Bei === null ? '' : this.state.ID_Bei} disabled />
         </FormGroup>
         <FormGroup>
-          <Label for="GebDatum">GebDatum</Label>
-          <Input type="number" name="GebDatum" id="GebDatum" value={this.state.GebDatum === null ? '' : this.state.GebDatum} disabled />
-        </FormGroup>
-        <FormGroup>
-          <Label for="Name">Name</Label>
-          <Input type="text" name="Name" id="Name" value={this.state.Name === null ? '' : this.state.Name} disabled />
-        </FormGroup>
-        <FormGroup>
-          <Label for="Rolle">Rolle</Label>
-          <Input type="text" name="Rolle" id="Rolle" value={this.state.Rolle === null ? '' : this.state.Rolle}  placeholder="M" disabled />
+          <Label for="Kommentar">Kommentar</Label>
+          <Input type="text" name="Kommentar" id="Kommentar" value={this.state.Kommentar === null ? '' : this.state.Kommentar} disabled />
         </FormGroup>
     </TabPanel>
     <TabPanel>
-      <h2>Beiträge des ausgewählten Mitglieds</h2>
-	<DataTable2 items={this.state.newInfo.erstellteBeitraege} />
+      <h2>Beitrag des ausgewählten Kommentars</h2>
+	<DataTable2 items={this.state.newInfo.hatBeitraege} />
     </TabPanel>
     <TabPanel>
-      <h2>Kommentare des ausgewählten Mitglieds</h2>
-        <DataTable3 items={this.state.newInfo.reagierteKommentare} />
-    </TabPanel>
-    <TabPanel>
-      <h2>Kommentierte Beiträge des ausgewählten Mitglieds</h2>
-        <DataTable2 items={this.state.newInfo.kommentierteBeitraege} />
+      <h2>Mitglied des ausgewählten Kommentars</h2>
+        <DataTable items={this.state.newInfo.vonMitgliedReagiert} />
     </TabPanel>
     <TabPanel>
             <SyntaxHighlighter language="json" style={docco} showLineNumbers="true">
@@ -113,4 +103,4 @@ class AddEditForm4 extends React.Component {
   }
 }
 
-export default AddEditForm4
+export default AddEditForm6

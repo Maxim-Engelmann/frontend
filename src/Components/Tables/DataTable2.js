@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'reactstrap';
 import ModalForm2 from '../Modals/Modal2'
+import ModalForm5 from '../Modals/Modal5'
 import { Url } from '../../constants/global'
 
 class DataTable2 extends Component {
@@ -17,10 +18,7 @@ class DataTable2 extends Component {
         "idbei": ID_Bei
       })
     })
-      .then(response => response.json())
-      .then(item => {
-        this.props.deleteItemFromState(ID_Bei)
-      })
+      .then(response => window.location.reload(true))
       .catch(err => console.log(err))
     }
 
@@ -58,7 +56,9 @@ class DataTable2 extends Component {
           <td>{in_Erstellt_array_string}</td>
           <td>{out_Hat_array_string}</td>
           <td>
-            <div style={{width:"120px"}}>
+            <div style={{width:"190px"}}>
+              <ModalForm5 buttonLabel="More" item={item}/>
+              {' '}
               <ModalForm2 buttonLabel="Edit" item={item} updateState={this.props.updateState}/>
               {' '}
               <Button color="danger" onClick={() => this.deleteItem(item.ID_Bei)}>Del</Button>
@@ -77,7 +77,7 @@ class DataTable2 extends Component {
 	    <th>ID_Mit</th>
             <th>in_Erstellt</th>
             <th>out_Hat</th>
-            <th style={{width:"130px"}}>Actions</th>
+            <th style={{width:"190px"}}>Actions</th>
           </tr>
         </thead>
         <tbody>

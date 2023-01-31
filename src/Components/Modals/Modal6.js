@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 
-import AddEditForm4 from '../Forms/AddEditForm4'
+import AddEditForm6 from '../Forms/AddEditForm6'
 //import { Url } from '../../constants/global'
 
 //import { FormGroup, Label, Input } from 'reactstrap';
 
-class ModalForm4 extends Component {
+class ModalForm6 extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -36,7 +36,7 @@ class ModalForm4 extends Component {
                   style={{float: "left", marginRight:"10px"}}>{label}
                 </Button>
 
-	title = this.props.item.ID_Mit + ' | ' + this.props.item.Name + ' | ' + this.props.item["@rid"] + ' (' + this.props.item["@class"] + ')'
+	title = this.props.item["@rid"] + ' (' + this.props.item["@class"] + ')'
 
       return (
       <div>
@@ -45,7 +45,7 @@ class ModalForm4 extends Component {
           <ModalHeader toggle={this.toggle} close={closeBtn}>{title}</ModalHeader>
           <ModalBody>
 
-            <AddEditForm4
+            <AddEditForm6
               toggle={this.toggle}
               item={this.props.item} />
 
@@ -56,4 +56,4 @@ class ModalForm4 extends Component {
   }
 }
 
-export default ModalForm4
+export default ModalForm6
